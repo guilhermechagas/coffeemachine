@@ -1,6 +1,8 @@
 package br.ufpb.dce.aps.coffeemachine.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachine;
 import br.ufpb.dce.aps.coffeemachine.CoffeeMachineException;
 import br.ufpb.dce.aps.coffeemachine.Coin;
@@ -34,16 +36,11 @@ public class MyCoffeeMachine implements CoffeeMachine {
 		if(this.value == 0) 
 			throw new CoffeeMachineException("No coin has been inserted");
 		if(this.coins.size() != 0) {
-			Coin.reverse();
+			Collections.reverse(this.coins);
+			//Coin.reverse();
 			this.factory.getDisplay().warn(Messages.CANCEL_MESSAGE);
-			for(Coin c : this.coins) {
-				for(Coin cc : this.coins) {
-					if(c != cc) 
-						this.factory.getCashBox().release(cc);
-					else
-						this.factory.getCashBox().release(c);
-				}
-			}
+			for(Coin c : this.coins) 
+				this.factory.getCashBox().release(c);
 		}		
 		this.factory.getDisplay().info (Messages.INSERT_COINS_MESSAGE);		
 	}
