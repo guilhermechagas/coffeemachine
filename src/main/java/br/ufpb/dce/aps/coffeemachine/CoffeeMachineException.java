@@ -6,3 +6,4 @@ public class CoffeeMachineException extends RuntimeException {
 		super(msg);
 	}
 }
+
