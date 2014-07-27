@@ -19,7 +19,7 @@ public class MyCoffeeMachine implements CoffeeMachine {
 		try {
 			this.value += dime.getValue();	
 			this.factory.getDisplay().info("Total: US$ " + this.value / 100 + "." + this.value % 100);
-		}catch(NullPointerException e) {
+		}catch(NullPointerException e){
 			throw new CoffeeMachineException("Invalid coin: null");
 		}
 	}
