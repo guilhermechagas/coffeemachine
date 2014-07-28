@@ -66,6 +66,7 @@ public class MyCoffeeMachine implements CoffeeMachine {
 		this.factory.getDisplay().info(Messages.TAKE_DRINK);
 		this.factory.getDisplay().info(Messages.INSERT_COINS);
 		this.coins.clear();
+		
 	}
 }
 
