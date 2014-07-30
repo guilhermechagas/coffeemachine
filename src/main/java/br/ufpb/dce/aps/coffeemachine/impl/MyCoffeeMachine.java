@@ -81,9 +81,8 @@ public class MyCoffeeMachine implements CoffeeMachine {
 			this.factory.getWaterDispenser().release(3);
 			if(drink == this.drink.BLACK_SUGAR) 
 				this.factory.getSugarDispenser().release(100);
-			if(drink == this.drink.WHITE) {
+			if(drink == this.drink.WHITE)
 				this.factory.getCreamerDispenser().release(100);
-			}
 			this.factory.getDisplay().info(Messages.RELEASING);
 			this.factory.getCupDispenser().release(1);
 			this.factory.getDrinkDispenser().release(1);
