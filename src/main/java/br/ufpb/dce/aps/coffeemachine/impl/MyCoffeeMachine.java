@@ -19,7 +19,7 @@ public class MyCoffeeMachine implements CoffeeMachine {
 	
 	public MyCoffeeMachine(ComponentsFactory factory) {
 		this.factory = factory;
-		this.factory.getDisplay().info("Insert coins and select a drink!");
+		this.factory.getDisplay().info(Messages.INSERT_COINS);
 		this.coins = new ArrayList<Coin>();
 	}
 
@@ -49,24 +49,27 @@ public class MyCoffeeMachine implements CoffeeMachine {
 
 	public void select(Drink drink) {
 		this.factory.getCupDispenser().contains(1);
-		this.factory.getWaterDispenser().contains(2);
-		this.factory.getCoffeePowderDispenser().contains(100);
-		if(drink == this.drink.BLACK_SUGAR) {
-			this.factory.getSugarDispenser().contains(100);
+		this.factory.getWaterDispenser().contains(2);		
+		if(!this.factory.getCoffeePowderDispenser().contains(1)) {
+			this.factory.getDisplay().warn(Messages.OUT_OF_COFFEE_POWDER);
+			this.factory.getCashBox().release(Coin.quarter);
+			this.factory.getCashBox().release(Coin.dime);
+			this.factory.getDisplay().info(Messages.INSERT_COINS);
+		}else{	
+			if(drink == this.drink.BLACK_SUGAR) 
+				this.factory.getSugarDispenser().contains(100);	
+			this.factory.getDisplay().info(Messages.MIXING);
+			this.factory.getCoffeePowderDispenser().release(100);
+			this.factory.getWaterDispenser().release(3);
+			if(drink == this.drink.BLACK_SUGAR) 
+				this.factory.getSugarDispenser().release(100);	
+			this.factory.getDisplay().info(Messages.RELEASING);
+			this.factory.getCupDispenser().release(1);
+			this.factory.getDrinkDispenser().release(1);
+			this.factory.getDisplay().info(Messages.TAKE_DRINK);
+			this.factory.getDisplay().info(Messages.INSERT_COINS);
+			this.coins.clear();
 		}
-		this.factory.getDisplay().info(Messages.MIXING);
-		this.factory.getCoffeePowderDispenser().release(100);
-		this.factory.getWaterDispenser().release(3);
-		if(drink == this.drink.BLACK_SUGAR) {
-			this.factory.getSugarDispenser().release(100);
-		}
-		this.factory.getDisplay().info(Messages.RELEASING);
-		this.factory.getCupDispenser().release(1);
-		this.factory.getDrinkDispenser().release(1);
-		this.factory.getDisplay().info(Messages.TAKE_DRINK);
-		this.factory.getDisplay().info(Messages.INSERT_COINS);
-		this.coins.clear();
-		
 	}
 }
 
