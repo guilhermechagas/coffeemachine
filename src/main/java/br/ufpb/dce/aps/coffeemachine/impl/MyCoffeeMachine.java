@@ -76,9 +76,19 @@ public class MyCoffeeMachine implements CoffeeMachine {
 			}
 			if(drink == this.drink.WHITE)
 				this.factory.getCreamerDispenser().contains(1);
+			if (drink == Drink.WHITE_SUGAR) {
+				this.factory.getCreamerDispenser().contains(0.1);
+				this.factory.getSugarDispenser().contains(0.1);
+				this.factory.getCashBox().count(Coin.dime);
+				this.factory.getCashBox().count(Coin.nickel);
+			}	
 			this.factory.getDisplay().info(Messages.MIXING);
 			this.factory.getCoffeePowderDispenser().release(100);
-			this.factory.getWaterDispenser().release(3);
+			this.factory.getWaterDispenser().release(3);		
+			if (drink == Drink.WHITE_SUGAR) {
+				this.factory.getCreamerDispenser().release(0.1);
+				this.factory.getSugarDispenser().release(0.1);
+			}	
 			if(drink == this.drink.BLACK_SUGAR) 
 				this.factory.getSugarDispenser().release(100);
 			if(drink == this.drink.WHITE)
@@ -86,7 +96,11 @@ public class MyCoffeeMachine implements CoffeeMachine {
 			this.factory.getDisplay().info(Messages.RELEASING);
 			this.factory.getCupDispenser().release(1);
 			this.factory.getDrinkDispenser().release(1);
-			this.factory.getDisplay().info(Messages.TAKE_DRINK);
+			this.factory.getDisplay().info(Messages.TAKE_DRINK);		
+			if (drink == Drink.WHITE_SUGAR) {
+				this.factory.getCashBox().release(Coin.dime);
+				this.factory.getCashBox().release(Coin.nickel);
+			}	
 			this.factory.getDisplay().info(Messages.INSERT_COINS);
 			this.coins.clear();
 		}
