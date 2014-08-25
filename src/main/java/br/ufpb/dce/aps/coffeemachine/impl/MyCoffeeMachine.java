@@ -27,7 +27,7 @@ public class MyCoffeeMachine implements CoffeeMachine {
 		try {
 			this.coins.add(dime);
 			this.coin = dime;
-			this.value += dime.getValue();	
+			this.value += dime.getValue();
 			this.factory.getDisplay().info("Total: US$ " + this.value / 100 + "." + this.value % 100);
 		}catch(NullPointerException e) {
 			throw new CoffeeMachineException("Invalid coin: null");
@@ -46,8 +46,25 @@ public class MyCoffeeMachine implements CoffeeMachine {
 		}		
 		this.factory.getDisplay().info(Messages.INSERT_COINS);		
 	}
-
-	public void select(Drink drink) {		
+	
+	public void returnCoins() {
+		Coin[] reverso = Coin.reverse();
+		for (Coin r : reverso) {
+			for (Coin aux : this.coins) {
+				if (aux == r) {
+					this.factory.getCashBox().release(aux);
+				}
+			}
+		}
+	}
+	
+	public void select(Drink drink) {
+		if(this.value < 35){
+			this.factory.getDisplay().warn(Messages.NO_ENOUGHT_MONEY);
+			returnCoins();
+			this.factory.getDisplay().info(Messages.INSERT_COINS);
+			return;
+		}
 		if(!this.factory.getCupDispenser().contains(1)) {
 			this.factory.getDisplay().warn(Messages.OUT_OF_CUP);
 			this.factory.getCashBox().release(Coin.quarter);
